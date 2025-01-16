@@ -1,0 +1,58 @@
+import random
+
+def jogar_dados():
+    return [random.randint(1, 6) for _ in range(3)]
+
+def calcular_soma(dados):
+    return sum(dados)
+
+def jogo_dados():
+    rodadas_jogador = 0
+    rodadas_computador = 0
+    rodadas_para_vencer = 3
+
+    print("Bem-vindo ao jogo de dados!")
+    print("Você precisa vencer 3 rodadas para ganhar o jogo.")
+
+    while rodadas_jogador < rodadas_para_vencer and rodadas_computador < rodadas_para_vencer:
+        # Gera os dados para o jogador e para o computador
+        dados_jogador = jogar_dados()
+        dados_computador = jogar_dados()
+
+        print("\nNova rodada!")
+        print("Seus dados foram lançados.")
+        print(f"Seus dados são: {dados_jogador}")
+        print("Você precisa decidir se a soma dos seus dados será maior ou menor que a soma dos dados do computador.")
+
+        escolha = input("Digite 'maior' se você acha que sua soma será maior, ou 'menor' se acha que será menor: ").strip().lower()
+
+        # Calcula a soma dos dados para o jogador e para o computador
+        soma_jogador = calcular_soma(dados_jogador)
+        soma_computador = calcular_soma(dados_computador)
+
+        print(f"A soma dos seus dados é: {soma_jogador}")
+        print(f"A soma dos dados do computador é: {soma_computador}")
+
+        if soma_jogador == soma_computador:
+            print(f"Os dados do computador nessa rodada foram: {dados_computador}")
+            print(f"Seus dados são: {dados_jogador}")
+            print("As somas são iguais. A rodada é invalidada. Vamos começar uma nova rodada.")
+
+        elif (escolha == 'maior' and soma_jogador > soma_computador) or (escolha == 'menor' and soma_jogador < soma_computador):
+            print("Você ganhou esta rodada!")
+            print(f"Os dados do computador nessa rodada foram: {dados_computador}")
+            rodadas_jogador += 1
+        else:
+            print("O computador ganhou esta rodada!")
+            print(f"Os dados do computador nessa rodada foram: {dados_computador}")
+            rodadas_computador += 1
+
+        print(f"Placar: Você {rodadas_jogador} - {rodadas_computador} Computador")
+
+    if rodadas_jogador == rodadas_para_vencer:
+        print("\nParabéns! Você venceu o jogo!")
+    else:
+        print("\nO computador venceu o jogo. Tente novamente!")
+
+# Chamada da função para iniciar o jogo
+jogo_dados()
